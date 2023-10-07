@@ -1,0 +1,17 @@
+{
+    "name": "tgu/karimov",
+    "autoload": {
+        "psr-4": {
+            "Tgu\\Karimov\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "karimov",
+            "email": "pinepeak.dm@gmail.com"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.23"
+    }
+}
