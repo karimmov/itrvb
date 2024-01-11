@@ -1,29 +1,16 @@
 <?php
 
+use Tgu\Karimov\Posts\Article;
+use Tgu\Karimov\Posts\Comment;
+use Tgu\Karimov\Posts\User;
+use Tgu\Karimov\Posts\UUID;
+
 require_once __DIR__. "/vendor/autoload.php";
 
-use Tgu\Karimov\Article;
-use Tgu\Karimov\Comment;
-use Tgu\Karimov\User;
+$user = new User(UUID::random(), 'vasek', 'Vasiliy', 'Artemov');
+$user2 = new User(UUID::random(), 'vasek2', 'Ivan', 'Artemov');
 
-spl_autoload_register(function ($class) {
-    $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . 'php';
-    $index = strripos($file, "Class_");
-    if ($index !== false) {
-        $name = substr($file, $index+6);
-        $file = str_replace("Class_", "Class/$name", $file);
-    }
-    
-
-    if (file_exists($file)) {
-        require "$class.php"; 
-    }
-    
-});
-
-$user = new User(1, "Иван", "Васильев");
 $article = new Article(1, $user, "Какой-то заголовок", "Какой-то текст");
-$user2 = new User(1, "Василий", "Редькин");
 $comment = new Comment(1, $user2, $article, "Какой-то комментарий");
 
 
