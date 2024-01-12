@@ -3,7 +3,7 @@
 namespace Tgu\Karimov\Repositories;
 
 use PDO;
-use Tgu\Karimov\Exception\UserNotFoundException;
+use Tgu\Karimov\Exceptions\UserNotFoundException;
 use Tgu\Karimov\Posts\User;
 use Tgu\Karimov\Posts\UUID;
 

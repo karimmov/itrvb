@@ -1,6 +1,6 @@
 <?php
 
-namespace Tgu\Karimov\Exception;
+namespace Tgu\Karimov\Exceptions;
 
 use Exception;
 

@@ -5,7 +5,7 @@ namespace Tgu\Karimov\Repositories;
 use Tgu\Karimov\Posts\Comment;
 use Tgu\Karimov\Posts\UUID;
 use PDO;
-use Tgu\Karimov\Exception\CommentNotFoundException;
+use Tgu\Karimov\Exceptions\CommentNotFoundException;
 
 class SqliteCommentsRepository implements CommentsRepositoryInterface
 {
@@ -21,9 +21,9 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
         );
 
         $statement->execute([
-            ":uuid"=>$comment->getUUID(),
-            ":post_uuid"=>(string)$comment->getPost()->getUUID(),
-            ":author_uuid"=>(string)$comment->getAuthor()->getUUID(),
+            ":uuid"=>(string)$comment->getUUID(),
+            ":post_uuid"=>(string)$comment->getPost(),
+            ":author_uuid"=>(string)$comment->getAuthor(),
             ":text"=>$comment->getText()
         ]);
     }
@@ -44,16 +44,10 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
             throw new CommentNotFoundException("Cannot get comment: $uuid");
         }
 
-        $userRepository = new SqliteUsersRepository($this->conn);
-        $author = $userRepository->get(new UUID($result['author_uuid']));
-        
-        $postRepository = new SqlitePostsRepository($this->conn);
-        $article = $postRepository->get(new UUID($result['post_uuid']));
-
         return new Comment(
             new UUID($result['uuid']),
-            $author,
-            $article,
+            new UUID($result['author_uuid']),
+            new UUID($result['post_uuid']),
             $result['text']
         );
     }

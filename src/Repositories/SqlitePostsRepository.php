@@ -5,7 +5,7 @@ namespace Tgu\Karimov\Repositories;
 use Tgu\Karimov\Posts\Article;
 use Tgu\Karimov\Posts\UUID;
 use PDO;
-use Tgu\Karimov\Exception\PostNotFoundException;
+use Tgu\Karimov\Exceptions\PostNotFoundException;
 
 class SqlitePostsRepository implements PostsRepositoryInterface
 {
@@ -13,6 +13,7 @@ class SqlitePostsRepository implements PostsRepositoryInterface
     {
         
     }
+
     public function save(Article $article) : void
     {
         $statement = $this->conn->prepare(
@@ -21,7 +22,7 @@ class SqlitePostsRepository implements PostsRepositoryInterface
 
         $statement->execute([
             ":uuid"=> (string)$article->getUUID(),
-            ":author_uuid"=>(string)$article->getAuthor()->getUUID(),
+            ":author_uuid"=>(string)$article->getAuthor(),
             ":title"=>$article->getTitle(),
             ":text"=>$article->getText()
         ]);
@@ -43,12 +44,9 @@ class SqlitePostsRepository implements PostsRepositoryInterface
             throw new PostNotFoundException("Cannot get article: $uuid");
         }
 
-        $userRepository = new SqliteUsersRepository($this->conn);
-        $author = $userRepository->get(new UUID($result['author_uuid']));
-
         return new Article(
             new UUID($result['uuid']),
-            $author,
+            new UUID($result['author_uuid']),
             $result['title'],
             $result['text']
         );
