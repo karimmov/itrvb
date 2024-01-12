@@ -34,7 +34,7 @@ class SqliteUsersRepository implements UserRepositoryInterface
         );
 
         $statement->execute([
-            ':uuid' => $uuid
+            ':uuid' => (string)$uuid
         ]);
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);

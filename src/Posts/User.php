@@ -2,9 +2,11 @@
 
 namespace Tgu\Karimov\Posts;
 
+use Tgu\Karimov\Posts\UUID;
+
 class User
 {
-    function __construct(private string $UUID, private string $username, private string $first_name, private string $last_name)
+    function __construct(private UUID $uuid, private string $username, private string $first_name, private string $last_name)
     {
         
     }
@@ -24,9 +26,9 @@ class User
         return $this->last_name;
     }
 
-    public function getUUID():string
+    public function getUUID()
     {
-        return $this->UUID;
+        return $this->uuid;
     }
 
     public function getUsername() : string

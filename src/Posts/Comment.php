@@ -2,10 +2,11 @@
 
 namespace Tgu\Karimov\Posts;
 
+use Tgu\Karimov\Posts\UUID;
 
 class Comment 
 {
-    function __construct(private UUID $uuid, private User $author, private Article $article, private string $text)
+    function __construct(private UUID $uuid, private UUID $author_uuid, private UUID $article_uuid, private string $text)
     {
         
     }
@@ -17,12 +18,12 @@ class Comment
 
     public function getAuthor()
     {
-        return $this->author;
+        return $this->author_uuid;
     }
 
     public function getPost()
     {
-        return $this->article;
+        return $this->article_uuid;
     }
 
     public function getText()
@@ -30,10 +31,10 @@ class Comment
         return $this->text;
     }
 
-    function __toString()
-    {
-        return "$this->author написал комментарий $this->text к статье <br/> $this->article";
-    }
+    // function __toString()
+    // {
+    //     return "$this->author написал комментарий $this->text к статье <br/> $this->article";
+    // }
 }
 
 ?>

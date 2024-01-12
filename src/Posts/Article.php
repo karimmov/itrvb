@@ -5,7 +5,7 @@ namespace Tgu\Karimov\Posts;
 
 class Article
 { 
-    function __construct(private UUID $uuid, private User $author, private string $title, private string $text)
+    function __construct(private UUID $uuid, private UUID $author_uuid, private string $title, private string $text)
     {
         
     }
@@ -17,7 +17,7 @@ class Article
 
     public function getAuthor()
     {
-        return $this->author;
+        return $this->author_uuid;
     }
 
     public function getTitle()
@@ -30,10 +30,10 @@ class Article
         return $this->text;
     }
 
-    function __toString()
-    {
-        return "Заголовок: $this->title <br/> Текст: $this->text <br/> Автор: $this->author";
-    }
+    // function __toString()
+    // {
+    //     return "Заголовок: $this->title <br/> Текст: $this->text <br/> Автор: $this->author";
+    // }
 }
 
 ?>

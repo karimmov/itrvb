@@ -22,8 +22,8 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
 
         $statement->execute([
             ":uuid"=>$comment->getUUID(),
-            ":post_uuid"=>(string)$comment->getPost()->getUUID(),
-            ":author_uuid"=>(string)$comment->getAuthor()->getUUID(),
+            ":post_uuid"=>(string)$comment->getPost(),
+            ":author_uuid"=>(string)$comment->getAuthor(),
             ":text"=>$comment->getText()
         ]);
     }
@@ -52,8 +52,8 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
 
         return new Comment(
             new UUID($result['uuid']),
-            $author,
-            $article,
+            new UUID($result['author_uuid']),
+            new UUID($result['post_uuid']),
             $result['text']
         );
     }
